@@ -1,0 +1,39 @@
+# Entornos virtuales
+.venv/
+venv/
+
+# Archivos de Python compilados
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de configuración de VSCode
+.vscode/
+
+# Archivos de bases de datos y datos temporales
+*.sqlite3
+*.db
+*.log
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de entorno
+.env
+.env.*
+
+# Archivos de datos del proyecto
+models_data.json
+
+# Archivos de test y cobertura
+htmlcov/
+.coverage
+.tox/
+
+# Archivos de exportación
+*.export.json
+
+# Otros
+*.bak
+*.swp
