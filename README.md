@@ -334,11 +334,6 @@ ai-factory start --dev
 
 Este proyecto está bajo licencia MIT. Ver `LICENSE` para más detalles.
 
-## 🆘 Soporte
-
-- 📧 Email: soporte@ai-factory.dev
-- 💬 Discord: [Únete a la comunidad](https://discord.gg/ai-factory)
-- 🐛 Issues: [GitHub Issues](https://github.com/valenuser/ai-factory/issues)
 
 ---
 
