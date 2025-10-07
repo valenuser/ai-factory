@@ -29,7 +29,8 @@ ai-factory check
 📁 Initializing workspace...
 ✅ Data directory: /path/to/data
 ✅ Models directory: /path/to/models
-🎉 All dependencies are ready!
+✅ Configuration loaded successfully
+🎉 All dependencies are ready! AI Factory is configured properly.
 ```
 
 **Opciones:**

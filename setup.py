@@ -11,7 +11,7 @@ setup(
     version="1.0.0",
     author="Valentin",
     author_email="vpavonlopez@gmail.com",
-    description="Tool to create, train, version and deploy AI models locally",
+    description="🏭 Create custom AI models in 5 minutes. Local, free, web interface included. No coding required!",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/valenuser/ai-factory",

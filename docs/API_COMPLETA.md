@@ -7,10 +7,20 @@ AI Factory proporciona una API REST completa para gestionar modelos de IA. Todos
 ## Iniciar el Servidor
 
 ```bash
+# Opción 1: Comando simple
+ai-factory serve
+
+# Opción 2: Con configuración personalizada  
 ai-factory serve --host 0.0.0.0 --port 8000
+
+# Opción 3: Usando Python directamente
+python -m ai_factory.cli serve
 ```
 
-La documentación interactiva estará disponible en: http://localhost:8000/docs
+**📍 URLs importantes:**
+- **Documentación interactiva**: http://localhost:8000/docs
+- **API principal**: http://localhost:8000
+- **Interfaz alternativa**: http://localhost:8000/redoc
 
 ## Endpoints Disponibles
 

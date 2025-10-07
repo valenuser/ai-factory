@@ -39,12 +39,16 @@
 pip install ai-factory
 ai-factory serve
 ```
-**¡Listo!** Abre tu navegador en: `http://localhost:8000`
+**¡Listo!** Abre tu navegador en: `http://localhost:8000/docs`
 
 ### Opción 2: Desde código fuente
-1. **Descargar:** Descarga este proyecto
-2. **Doble clic:** Ejecuta `scripts/install.bat` (Windows) o `install.sh` (Mac/Linux)
-3. **¡Funciona!** Se abre automáticamente en tu navegador
+1. **Descargar:** Descarga este proyecto desde GitHub
+2. **Doble clic:** Ejecuta `scripts/install.bat` (Windows) o `install.sh` (Mac/Linux)  
+3. **¡Funciona!** Se abre automáticamente en tu navegador en `http://localhost:8000/docs`
+
+### ⚠️ **Prerequisitos importantes:**
+- **Python 3.8+** instalado ([descargar aquí](https://python.org))
+- **Ollama** instalado ([descargar aquí](https://ollama.ai))
 
 ---
 
@@ -74,16 +78,8 @@ ai-factory serve
 ```json
 {
   "model_name": "chef-personal",
-  "base_model": "llama3.2:1b",
-  "system_prompt": "Eres un chef experto que ayuda a crear recetas deliciosas con ingredientes simples. Siempre das instrucciones claras paso a paso.",
-  "temperature": 0.7,
-  "max_tokens": 500,
-  "training_data": [
-    {
-      "input": "¿Qué puedo hacer con huevos, leche y harina?",
-      "output": "¡Perfecto! Con esos ingredientes puedes hacer panqueques deliciosos..."
-    }
-  ]
+  "base_prompt": "Eres un chef experto que ayuda a crear recetas deliciosas con ingredientes simples. Siempre das instrucciones claras paso a paso.",
+  "version": "1.0.0"
 }
 ```
 
