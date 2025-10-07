@@ -1,0 +1,40 @@
+# AI Factory - Modelfile Template
+# This file is used to create custom AI models with Ollama
+
+# Base model to inherit from (you can change this)
+FROM llama3.2
+
+# System prompt - this will be replaced with your custom prompt
+SYSTEM """
+{prompt}
+"""
+
+# Model parameters for better performance
+PARAMETER temperature 0.7
+PARAMETER top_p 0.9
+PARAMETER top_k 40
+PARAMETER repeat_penalty 1.1
+PARAMETER num_ctx 4096
+
+# Stop sequences to prevent unwanted output
+PARAMETER stop "</s>"
+PARAMETER stop "<|im_end|>"
+
+# Performance tuning
+PARAMETER num_thread 8
+PARAMETER num_predict 512
+
+# Custom template for chat format (optional)
+TEMPLATE """
+{{ if .System }}<|im_start|>system
+{{ .System }}<|im_end|>
+{{ end }}{{ if .Prompt }}<|im_start|>user
+{{ .Prompt }}<|im_end|>
+<|im_start|>assistant
+{{ end }}{{ .Response }}<|im_end|>
+"""
+
+# Metadata as comments (Ollama doesn't support custom parameters)
+# Model: {model_name}
+# Created by: AI Factory
+# Version: {version}

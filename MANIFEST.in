@@ -1,0 +1,28 @@
+# MANIFEST.in
+# Include documentation and configuration files
+include README.md
+include README_PYPI.md
+include LICENSE
+include requirements.txt
+include pyproject.toml
+include REORGANIZATION_SUMMARY.md
+
+# Include templates and configuration
+recursive-include ai_factory/templates *
+recursive-include ai_factory *.json
+recursive-include ai_factory *.yaml
+recursive-include ai_factory *.yml
+
+# Exclude development and testing files
+exclude cli.py
+exclude config.py
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+recursive-exclude tests *
+recursive-exclude docs *
+recursive-exclude examples *
+recursive-exclude scripts *
+recursive-exclude .git *
+recursive-exclude .venv *
+recursive-exclude * .DS_Store
+recursive-exclude * .env*

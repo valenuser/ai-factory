@@ -25,14 +25,27 @@ Thumbs.db
 
 # Archivos de datos del proyecto
 models_data.json
+data/
+models/
 
 # Archivos de test y cobertura
 htmlcov/
 .coverage
 .tox/
+.pytest_cache/
+*.pytest_cache
 
 # Archivos de exportación
 *.export.json
+
+# Deployments y archivos generados
+deployments/
+exports/
+test_downloads/
+
+# Archivos temporales de testing
+downloaded_*
+*-deployment.zip
 
 # Otros
 *.bak
