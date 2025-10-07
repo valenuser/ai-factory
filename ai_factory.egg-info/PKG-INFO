@@ -1,0 +1,205 @@
+Metadata-Version: 2.4
+Name: ai-factory
+Version: 1.0.0
+Summary: Herramienta para crear, entrenar, versionar y desplegar modelos de IA localmente
+Home-page: https://github.com/valenuser/ai-factory
+Author: Valentin
+Author-email: valentin@example.com
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi
+Requires-Dist: uvicorn[standard]
+Requires-Dist: pydantic
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# AI Factory - Contexto del Proyecto
+
+AI Factory es una herramienta diseñada para que cualquier desarrollador pueda crear, entrenar, versionar y desplegar modelos de inteligencia artificial personalizados de forma local, sin depender de bases de datos ni servicios externos. Todo el sistema se ejecuta con Ollama y utiliza FastAPI como interfaz REST.
+
+El objetivo del proyecto es simplificar la creación de modelos de IA mediante un flujo guiado y automatizado que incluye la generación de modelos, entrenamiento con ejemplos, comparación de versiones, y despliegue instantáneo de APIs, todo desde un entorno local.
+
+---
+
+## 1. Filosofía del proyecto
+- Sin dependencias externas: todo corre localmente.
+- Persistencia simple en JSON (sin bases de datos).
+- Portabilidad total: los modelos pueden exportarse e importarse.
+- Versionado semántico automático.
+- Despliegue inmediato de modelos con FastAPI.
+- Simplicidad y control total del usuario sobre su entorno.
+
+---
+
+## 2. Flujo general
+1. El usuario crea un modelo indicando un nombre y un prompt.
+2. AI Factory genera un Modelfile con ese prompt y crea el modelo local con Ollama.
+3. Se calculan métricas iniciales y se guardan en el archivo models_data.json.
+4. El usuario puede entrenar el modelo enviando ejemplos (input / expected_output).
+5. AI Factory actualiza las métricas y la versión del modelo automáticamente.
+6. Si el usuario cambia el prompt, se crea una nueva versión minor.
+7. El usuario puede comparar versiones y generar la API FastAPI para servir su modelo.
+8. Todo el progreso se guarda en models_data.json, que puede exportarse o importarse.
+
+---
+
+## 3. Arquitectura general
+- **FastAPI**: interfaz principal con endpoints REST.
+- **Ollama**: motor local de generación y entrenamiento de modelos.
+- **models_data.json**: almacena los modelos, sus prompts, métricas y versiones.
+- **models/**: carpeta donde se guardan los Modelfiles de cada modelo.
+- **CLI**: permite iniciar el servidor local con el comando `ai-factory serve`.
+
+---
+
+## 4. Endpoints principales
+- `POST /models/create`: Crea un nuevo modelo a partir de un prompt inicial.
+- `POST /models/{model_name}/train`: Entrena el modelo con ejemplos proporcionados.
+- `POST /models/{model_name}/update_prompt`: Actualiza el prompt del modelo.
+- `GET /models/{model_name}/compare`: Compara todas las versiones de un mismo modelo.
+- `POST /models/{model_name}/generate_api`: Genera un archivo FastAPI listo para servir el modelo.
+- `GET /export`: Exporta el archivo models_data.json con todos los modelos.
+- `POST /import`: Permite importar un archivo models_data.json externo.
+- `DELETE /models/{model_name}`: Elimina un modelo y todas sus versiones del sistema.
+
+---
+
+## 5. Ejemplo de flujo de uso
+1. El usuario ejecuta: `POST /models/create` → Se crea ai-clean:v0.1.0
+2. Envía ejemplos a: `POST /models/ai-clean/train` → Se generan métricas y se sube a v0.1.1
+3. Actualiza el prompt: `POST /models/ai-clean/update_prompt` → Se crea v0.2.0
+4. Compara versiones: `GET /models/ai-clean/compare` → Se determina la versión más precisa
+5. Genera la API: `POST /models/ai-clean/generate_api` → Descarga fastapi_ai-clean.py
+6. Exporta el progreso: `GET /export`
+7. Elimina el modelo: `DELETE /models/ai-clean`
+
+---
+
+## 6. Estructura de models_data.json
+El archivo models_data.json almacena toda la información de los modelos.
+
+```json
+{
+  "ai-clean:v0.1.0": {
+    "prompt": "Clasifica reseñas en positivas o negativas",
+    "metrics": {"accuracy": 0.91, "f1": 0.88},
+    "created_at": "2025-10-07T21:45:00Z",
+    "status": "ok"
+  },
+  "ai-clean:v0.2.0": {
+    "prompt": "Clasifica reseñas y detecta sarcasmo",
+    "metrics": {"accuracy": 0.94, "f1": 0.90},
+    "created_at": "2025-10-07T23:12:00Z",
+    "status": "ok"
+  }
+}
+```
+
+---
+
+## 7. Versionado semántico (semver)
+- Creación de modelo nuevo → v0.1.0
+- Entrenamiento con ejemplos → +0.0.1
+- Cambio de prompt → +0.1.0
+- Regeneración completa → +1.0.0
+
+---
+
+## 8. CLI
+AI Factory se puede ejecutar desde terminal con:
+
+```sh
+ai-factory serve --port 8000
+```
+
+Esto lanza el servidor FastAPI local en:
+
+    http://localhost:8000/docs
+
+---
+
+## 9. Ventajas clave
+- No requiere base de datos.
+- 100% local y portable.
+- Control completo del versionado.
+- Comparación automatizada de métricas.
+- Exportación e importación sencilla.
+- Ideal para pruebas rápidas y desarrollo de prototipos IA.
+
+---
+
+
+## 10. Flujo técnico general
+
+<div align="center">
+
+```mermaid
+flowchart TD
+    A[Usuario] -->|Solicita acción| B[FastAPI / Swagger / CLI]
+    B --> C[Endpoints REST]
+    C --> D[Ollama Engine]
+    D <--> E[models/Modelfiles]
+    D --> F[models_data.json]
+```
+
+</div>
+
+---
+
+## Animación didáctica (ASCII)
+
+```text
+┌────────────┐      POST /models/create      ┌──────────────┐
+│   Usuario  │ ───────────────────────────→ │   FastAPI    │
+└────────────┘                              └──────────────┘
+       │                                           │
+       │             Genera Modelfile              │
+       │◀──────────────────────────────────────────┘
+       │                                           │
+       │        Entrena y versiona modelo          │
+       │◀──────────────────────────────────────────┐
+       │                                           │
+       │         Guarda en models_data.json        │
+       │◀──────────────────────────────────────────┘
+       │                                           │
+       │         Exporta/Importa modelos           │
+       │◀──────────────────────────────────────────┐
+       ▼                                           │
+┌────────────┐      DELETE /models/{name}     ┌──────────────┐
+│   Usuario  │ ◀───────────────────────────── │   FastAPI    │
+└────────────┘                              └──────────────┘
+```
+
+---
+
+---
+
+## Estado actual del proyecto
+
+**Etapa:** Desarrollo inicial funcional
+
+- El backend con FastAPI está implementado y permite crear, eliminar, consultar y exportar modelos.
+- La persistencia se realiza en `models_data.json`.
+- El versionado y la actualización de prompts están soportados.
+- Falta la integración real con Ollama y la generación automática de Modelfiles.
+- El flujo de entrenamiento y comparación de versiones está esbozado pero no completamente automatizado.
+- El sistema es usable localmente y permite pruebas de flujo completo, pero aún no es una solución plug&play para usuarios finales.
+
+---
+

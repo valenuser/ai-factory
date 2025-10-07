@@ -1,0 +1,2 @@
+[console_scripts]
+ai-factory = cli:main

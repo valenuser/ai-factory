@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Body
 from fastapi.responses import FileResponse
 from schemas.models_schemas import ModelGetResponse, ModelGetByNameResponse ,ModelCreateRequest, ModelTrainRequest, ModelTrainResponse, ModelAddPromptRequest, ModelAddPromptResponse, ModelCompareRequest,ModelCompareResponse
+from config import config
 
 from api.services.model_services import get_models_json, get_model_by_name_json, delete_model_json, create_model_json, add_prompt_json
 
@@ -24,9 +25,11 @@ async def get_models():
 #export models_Data as file
 @router.get("/export")
 def export_json():
-
-    file_path = 'models_data.json'
-
+    file_path = config.get_models_data_path()
+    
+    # Ensure file exists
+    config.ensure_directories()
+    
     return FileResponse(
         path= file_path,
         filename="models_data.json",  # nombre del archivo que descargará el usuario
