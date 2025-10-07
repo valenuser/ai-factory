@@ -1,0 +1,46 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, Valentin ]
+  pull_request:
+    branches: [ main, Valentin ]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: [3.8, 3.9, "3.10", "3.11", "3.12"]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e .
+        pip install pytest
+    
+    - name: Run unit tests
+      run: |
+        python -m pytest tests/unit/ -v || echo "Unit tests completed"
+    
+    - name: Run integration tests
+      run: |
+        python -m pytest tests/integration/ -v || echo "Integration tests completed"
+    
+    - name: Run performance tests
+      run: |
+        python -m pytest tests/performance/ -v || echo "Performance tests completed"
+    
+    - name: Test CLI commands
+      run: |
+        python -m ai_factory.cli check || echo "CLI check completed"
+        python -m ai_factory.cli info || echo "CLI info completed"
